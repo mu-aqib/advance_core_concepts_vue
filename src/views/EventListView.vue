@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed, watchEffect } from 'vue'
 import EventService from '@/services/EventService.js'
 import EventCard from '@/components/EventCard.vue'
 import { RouterLink } from 'vue-router';
@@ -20,26 +20,21 @@ const hasNextPage = computed(() => {
   return  page.value < pageNo
 })
 
-function getEventsList() {
-  EventService.getEvents(2, page.value)
-    .then((response) => {
-      events.value = null
-      events.value = response.data
-      totalPages.value = parseInt(response.headers['x-total-count'])
-    })
-    .catch((error) => {
-      console.log(error)
-    })
-}
-
 onMounted(() => {
-  getEventsList()
+  // getEventsList()
+  watchEffect( () => {
+    EventService.getEvents(2, page.value)
+      .then((response) => {
+        events.value = null
+        events.value = response.data
+        totalPages.value = parseInt(response.headers['x-total-count'])
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  })
 })
 
-// Create a watcher to react to changes in the page prop
-watch(page, () => {
-  getEventsList()
-});
 </script>
 
 <template>
