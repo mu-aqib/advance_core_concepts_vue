@@ -17,11 +17,11 @@
   import { useRouter } from 'vue-router'
   import EventService from '@/services/EventService.js'
   
-const props = defineProps({
-  id: {
-    required: true,
-  },
-})
+  const props = defineProps({
+    id: {
+      required: true,
+    },
+  })
   const router = useRouter()
   const event = ref(null)
   

@@ -4,5 +4,6 @@
 </template>
   
 <script setup>
+  import { onMounted } from 'vue'
   const {event} = defineProps(["event"])
 </script>

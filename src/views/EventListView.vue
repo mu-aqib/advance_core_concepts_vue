@@ -3,8 +3,8 @@ import { ref, onMounted, computed, watchEffect } from 'vue'
 import EventService from '@/services/EventService.js'
 import EventCard from '@/components/EventCard.vue'
 import { RouterLink } from 'vue-router';
-import { useRoute, useRouter } from 'vue-router';
-
+import { useRoute, useRouter, onBeforeRouteUpdate  } from 'vue-router';
+import NProgress from 'nprogress'
 const events = ref(null)
 const totalPages = ref(null)
 
@@ -23,6 +23,7 @@ const hasNextPage = computed(() => {
 onMounted(() => {
   // getEventsList()
   watchEffect( () => {
+    NProgress.start()
     EventService.getEvents(2, page.value)
       .then((response) => {
         events.value = null
@@ -31,6 +32,9 @@ onMounted(() => {
       })
       .catch((error) => {
         router.push({ name: 'network-error' })
+      })
+      .finally(() => {
+        NProgress.done()
       })
   })
 })
@@ -65,26 +69,26 @@ onMounted(() => {
 </template>
 
 <style scoped>
-.events {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.pagination {
-  display: flex;
-  width: 290px;
-}
-.pagination a {
-  flex: 1;
-  text-decoration: none;
-  color: #2c3e50;
-}
+  .events {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .pagination {
+    display: flex;
+    width: 290px;
+  }
+  .pagination a {
+    flex: 1;
+    text-decoration: none;
+    color: #2c3e50;
+  }
 
-#page-prev {
-  text-align: left;
-}
+  #page-prev {
+    text-align: left;
+  }
 
-#page-next {
-  text-align: right;
-}
+  #page-next {
+    text-align: right;
+  }
 </style>
