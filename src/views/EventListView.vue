@@ -3,13 +3,14 @@ import { ref, onMounted, computed, watchEffect } from 'vue'
 import EventService from '@/services/EventService.js'
 import EventCard from '@/components/EventCard.vue'
 import { RouterLink } from 'vue-router';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 const events = ref(null)
 const totalPages = ref(null)
 
 // const { page } = defineProps(['page'])
 const route = useRoute();
+const router = useRouter()
 
 
 // -- COMPUTED PROPERTIES
@@ -29,7 +30,7 @@ onMounted(() => {
         totalPages.value = parseInt(response.headers['x-total-count'])
       })
       .catch((error) => {
-        console.log(error)
+        router.push({ name: 'network-error' })
       })
   })
 })

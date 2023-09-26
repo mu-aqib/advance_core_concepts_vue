@@ -31,7 +31,6 @@ const props = defineProps({
         event.value = response.data
       })
       .catch((error) => {
-        console.log(error.response)
         if (error.response && error.response.status === 404) {
           router.push({
             name: '404-resource',
