@@ -3,6 +3,7 @@ import EventListView from '../views/EventListView.vue'
 // import EventDetailsView from '../views/EventDetailsView.vue'
 import AboutView from '../views/AboutView.vue'
 import NotFound from '../views/NotFound.vue';
+import NetworkError from '../views/NetworkError.vue';
 
 import EventLayout from "../views/event/Layout.vue"
 import EventDetails from "../views/event/Details.vue"
@@ -52,10 +53,15 @@ const router = createRouter({
     },
     {
       path: '/404/:resource',
-      name: '404Resource',
+      name: '404-resource',
       component: NotFound,
       props: true
     },
+    {
+      path: '/network-error',
+      name: 'network-error',
+      component: NetworkError
+    }
   ],
 })
 
