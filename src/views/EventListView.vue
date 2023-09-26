@@ -16,7 +16,6 @@ const route = useRoute();
 const page = computed( () => parseInt(route.query.page) || 1 )
 const hasNextPage = computed(() => {
   const pageNo = Math.ceil(totalPages.value / 2)
-  console.log(pageNo, "sdjfhsjk", page.value);
   return  page.value < pageNo
 })
 
