@@ -70,10 +70,12 @@ const router = createRouter({
 
 router.beforeEach(() => {
   NProgress.start()
+  console.log("hello before");
 })
 
 router.afterEach(() => {
   NProgress.done()
+  console.log("hello after");
 })
 
 export default router
